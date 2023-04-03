@@ -1,0 +1,20 @@
+{
+  "name": "@jalan/quasar-app-extension-jalan-extended-components",
+  "version": "0.0.1",
+  "description": "Conjunto de componentes jalan",
+  "author": "Laís",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "repository": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/JalanExtendedComponents",
+  "bugs": "",
+  "homepage": "",
+  "engines": {
+    "node": ">= 12.2.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "private": true
+}
