@@ -54,7 +54,6 @@
     @update:model-value="value => $emit('update:model-value', value)"
     :model-value="modelValue"
 
-    :label="label"
     :placeholder="placeholder"
     :hint="hint"
 

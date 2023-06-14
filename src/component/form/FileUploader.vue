@@ -26,7 +26,7 @@
           <div class="col q-pa-xs" :class="$q.screen.lt.sm? 'row q-gutter-sm items-center':''">
             <div class="q-uploader__title"><span v-html="labelData" /></div>
             <div class="text-negative" v-if="rejected.extensionAccept">Formato do arquivo inválido. Arquivos aceitos: {{ extensions }}</div>
-            <div class="text-negative" v-else-if="rejected.maxFileSize">O arquivo é maior que 10MB. Faça o upload do arquivo no drive e utilize a opção "URL do drive" acima.</div>
+            <div class="text-negative" v-else-if="rejected.maxFileSize">O arquivo é maior que 10MB.</div>
             <div class="text-negative" v-else-if="isDirty && required && !file && !modelValue">Upload obrigatório.</div>
             <div class="text-negative" v-else-if="uploadError">Erro ao realizar upload, tente novamente.</div>
             <div class="text-positive" v-else-if="successfulUpload">Arquivo salvo.</div>
