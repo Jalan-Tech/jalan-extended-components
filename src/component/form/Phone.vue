@@ -239,7 +239,7 @@ export default {
     if (this.modelValue) {
       const phoneParts = this.modelValue.split(' ')
       if (phoneParts.length === 2) {
-        this.ddi = phoneParts[0]
+        this.ddi = phoneParts[0].replace('+', '')
         this.phone = phoneParts[1]
       }
     }
