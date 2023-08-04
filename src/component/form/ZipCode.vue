@@ -16,7 +16,7 @@
     :disable="disable"
     :readonly="readonly"
 
-    :rules="[...rules, val => !val || !isBrazil || val.length === 8 || 'Formato inválido']"
+    :rules="[...rules, val => !val || (!!val && val.length === 8) || !isBrazil || 'Formato inválido']"
     :lazy-rules="true"
 
     :filled="inputStyle === 'filled'"
