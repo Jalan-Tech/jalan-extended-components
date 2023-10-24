@@ -1,79 +1,81 @@
 <template>
-  <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
-  <q-select
-    ref="field"
-    options-selected-class="text-bold bg-grey-2"
+  <div>
+    <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
+    <q-select
+      ref="field"
+      options-selected-class="text-bold bg-grey-2"
 
-    @update:model-value="$emit('update:model-value', $event)"
-    :model-value="modelValue"
+      @update:model-value="$emit('update:model-value', $event)"
+      :model-value="modelValue"
 
-    :placeholder="placeholder"
-    :hint="hint"
+      :placeholder="placeholder"
+      :hint="hint"
 
-    :multiple="multiple && (typeof modelValue) !== 'string'"
-    :options="filteredOptions"
-    :option-label="optionLabel"
+      :multiple="multiple && (typeof modelValue) !== 'string'"
+      :options="filteredOptions"
+      :option-label="optionLabel"
 
-    :use-chips="useChips !== undefined ? useChips : !!multiple"
-    :use-input="useInput"
-    :emit-value="emitValue"
-    :map-options="mapOptions"
-    :input-debounce="0"
+      :use-chips="useChips !== undefined ? useChips : !!multiple"
+      :use-input="useInput"
+      :emit-value="emitValue"
+      :map-options="mapOptions"
+      :input-debounce="0"
 
-    :loading="loading"
-    :disable="disable"
-    :readonly="readonly"
+      :loading="loading"
+      :disable="disable"
+      :readonly="readonly"
 
-    :filled="inputStyle === 'filled'"
-    :outlined="inputStyle === 'outlined'"
-    :dense="dense"
-    :color="color"
-    :hide-bottom-space="hideBottomSpace"
-    :class="inputClass"
+      :filled="inputStyle === 'filled'"
+      :outlined="inputStyle === 'outlined'"
+      :dense="dense"
+      :color="color"
+      :hide-bottom-space="hideBottomSpace"
+      :class="inputClass"
 
-    :rules="rules"
-    :lazy-rules="true"
+      :rules="rules"
+      :lazy-rules="true"
 
-    @filter="filterFn"
+      @filter="filterFn"
 
-    @focus="$refs.field.resetValidation(); $emit('focus', $event)"
-    @blur="$emit('blur', $event)"
-  >
-    <template v-if="icon" v-slot:[iconAppendPosition]>
-      <q-icon :name="icon" />
-    </template>
-    <template v-if="hasDetails && !showDetails" v-slot:selected-item="scope">
-      <img v-if="scope.opt.img" :src="scope.opt.img" class="q-mr-sm" style="height: 30px; width: 40px; object-fit: contain;" />
-      <div>
-        {{ scope.opt.label }}
-        <div v-if="scope.opt.caption" class="text-caption">{{ scope.opt.caption }}</div>
+      @focus="$refs.field.resetValidation(); $emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
+      <template v-if="icon" v-slot:[iconAppendPosition]>
+        <q-icon :name="icon" />
+      </template>
+      <template v-if="hasDetails && !showDetails" v-slot:selected-item="scope">
+        <img v-if="scope.opt.img" :src="scope.opt.img" class="q-mr-sm" style="height: 30px; width: 40px; object-fit: contain;" />
+        <div>
+          {{ scope.opt.label }}
+          <div v-if="scope.opt.caption" class="text-caption">{{ scope.opt.caption }}</div>
+        </div>
+      </template>
+      <template v-if="hasDetails" v-slot:option="scope">
+        <q-item
+          v-bind="scope.itemProps"
+        >
+          <q-item-section side v-if="scope.opt.img">
+            <img :src="scope.opt.img" style="height: 30px; width: 40px; object-fit: contain;" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label><template v-html="scope.opt[optionLabel] || scope.opt" /></q-item-label>
+            <q-item-label v-if="scope.opt.caption" caption>{{ scope.opt.caption }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+      <template v-slot:no-option>
+        <q-item>
+          <q-item-section class="text-grey">
+            Sem resultados
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
+    <div class="row q-pb-md" v-if="showDetails && modelValue" style="max-width: 900px">
+      <div v-if="selectedItem.description" class="col-md-7 col-12 q-pr-md q-mb-md" v-html="selectedItem.description" />
+      <div v-if="selectedItem.img" class="col-md-5 col-12" style="max-height: 450px">
+        <q-img :src="selectedItem.img" contain/>
       </div>
-    </template>
-    <template v-if="hasDetails" v-slot:option="scope">
-      <q-item
-        v-bind="scope.itemProps"
-      >
-        <q-item-section side v-if="scope.opt.img">
-          <img :src="scope.opt.img" style="height: 30px; width: 40px; object-fit: contain;" />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label><template v-html="scope.opt[optionLabel] || scope.opt" /></q-item-label>
-          <q-item-label v-if="scope.opt.caption" caption>{{ scope.opt.caption }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </template>
-    <template v-slot:no-option>
-      <q-item>
-        <q-item-section class="text-grey">
-          Sem resultados
-        </q-item-section>
-      </q-item>
-    </template>
-  </q-select>
-  <div class="row q-pb-md" v-if="showDetails && modelValue" style="max-width: 900px">
-    <div v-if="selectedItem.description" class="col-md-7 col-12 q-pr-md q-mb-md" v-html="selectedItem.description" />
-    <div v-if="selectedItem.img" class="col-md-5 col-12" style="max-height: 450px">
-      <q-img :src="selectedItem.img" contain/>
     </div>
   </div>
 </template>

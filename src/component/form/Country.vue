@@ -1,52 +1,54 @@
 <template>
-  <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
-  <q-select
-    ref="field"
-    options-selected-class="text-bold bg-grey-2"
+  <div>
+    <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
+    <q-select
+      ref="field"
+      options-selected-class="text-bold bg-grey-2"
 
-    @update:model-value="$emit('update:model-value', $event)"
-    :model-value="modelValue"
+      @update:model-value="$emit('update:model-value', $event)"
+      :model-value="modelValue"
 
-    :placeholder="modelValue ? '' : placeholder"
-    :hint="hint"
+      :placeholder="modelValue ? '' : placeholder"
+      :hint="hint"
 
-    :options="filteredOptions"
+      :options="filteredOptions"
 
-    :use-input="true"
-    :emit-value="true"
-    :map-options="true"
-    :input-debounce="0"
+      :use-input="true"
+      :emit-value="true"
+      :map-options="true"
+      :input-debounce="0"
 
-    :loading="loading"
-    :disable="disable"
-    :readonly="readonly"
+      :loading="loading"
+      :disable="disable"
+      :readonly="readonly"
 
-    :filled="inputStyle === 'filled'"
-    :outlined="inputStyle === 'outlined'"
-    :dense="dense"
-    :color="color"
-    :hide-bottom-space="hideBottomSpace"
-    :class="inputClass"
+      :filled="inputStyle === 'filled'"
+      :outlined="inputStyle === 'outlined'"
+      :dense="dense"
+      :color="color"
+      :hide-bottom-space="hideBottomSpace"
+      :class="inputClass"
 
-    :rules="rules"
-    :lazy-rules="true"
+      :rules="rules"
+      :lazy-rules="true"
 
-    @filter="filterFn"
+      @filter="filterFn"
 
-    @focus="$refs.field.resetValidation(); $emit('focus', $event)"
-    @blur="$emit('blur', $event)"
-  >
-    <template v-if="icon" v-slot:[iconAppendPosition]>
-      <q-icon :name="icon" />
-    </template>
-    <template v-slot:no-option>
-      <q-item>
-        <q-item-section class="text-grey">
-          Sem resultados
-        </q-item-section>
-      </q-item>
-    </template>
-  </q-select>
+      @focus="$refs.field.resetValidation(); $emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
+      <template v-if="icon" v-slot:[iconAppendPosition]>
+        <q-icon :name="icon" />
+      </template>
+      <template v-slot:no-option>
+        <q-item>
+          <q-item-section class="text-grey">
+            Sem resultados
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
+  </div>
 </template>
 
 <script>

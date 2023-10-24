@@ -1,77 +1,79 @@
 <template>
-  <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
-  <div class="row">
-    <q-select
-      ref="ddi"
-      class="col-auto q-pr-sm"
-      :class="inputClass"
-      v-model="ddi"
+  <div>
+    <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
+    <div class="row">
+      <q-select
+        ref="ddi"
+        class="col-auto q-pr-sm"
+        :class="inputClass"
+        v-model="ddi"
 
-      :disable="disable"
-      :readonly="readonly"
+        :disable="disable"
+        :readonly="readonly"
 
-      :rules="[...rules]"
-      :options="ddiList"
-      emit-value map-options
+        :rules="[...rules]"
+        :options="ddiList"
+        emit-value map-options
 
-      :filled="inputStyle === 'filled'"
-      :outlined="inputStyle === 'outlined'"
-      :dense="dense"
-      :color="color"
-      :hide-bottom-space="hideBottomSpace"
-    >
-      <template v-slot:selected-item="scope">
-        <img :src="scope.opt.flag" width="30" class="q-mr-md" />
-        {{ scope.opt.label }}
-      </template>
-      <template v-slot:option="scope">
-        <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-          <q-item-section avatar>
-            <img :src="scope.opt.flag" width="30" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ scope.opt.label }}</q-item-label>
-          </q-item-section>
-        </q-item>
-      </template>
-    </q-select>
-    <!-- {{ phone }} -->
-    <q-input
-      ref="phone"
-      class="col"
-      :class="inputClass"
-      v-model="phone"
+        :filled="inputStyle === 'filled'"
+        :outlined="inputStyle === 'outlined'"
+        :dense="dense"
+        :color="color"
+        :hide-bottom-space="hideBottomSpace"
+      >
+        <template v-slot:selected-item="scope">
+          <img :src="scope.opt.flag" width="30" class="q-mr-md" />
+          {{ scope.opt.label }}
+        </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+            <q-item-section avatar>
+              <img :src="scope.opt.flag" width="30" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ scope.opt.label }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
+      <!-- {{ phone }} -->
+      <q-input
+        ref="phone"
+        class="col"
+        :class="inputClass"
+        v-model="phone"
 
-      :placeholder="placeholder"
-      :hint="hint"
+        :placeholder="placeholder"
+        :hint="hint"
 
-      type="tel"
-      :mask="(ddi === '55' && phone) ? (phone.length < 11 ? '(##) ####-#####' : '(##) # ####-####') : ''"
-      unmasked-value
+        type="tel"
+        :mask="(ddi === '55' && phone) ? (phone.length < 11 ? '(##) ####-#####' : '(##) # ####-####') : ''"
+        unmasked-value
 
-      :loading="loading"
-      :disable="disable"
-      :readonly="readonly"
+        :loading="loading"
+        :disable="disable"
+        :readonly="readonly"
 
-      :rules="[
-        ...rules,
-        val => !val || (ddi === '55' ? val.length >= 10 : val.length >= 7) || 'Formato incorreto'
-      ]"
-      :lazy-rules="true"
+        :rules="[
+          ...rules,
+          val => !val || (ddi === '55' ? val.length >= 10 : val.length >= 7) || 'Formato incorreto'
+        ]"
+        :lazy-rules="true"
 
-      :filled="inputStyle === 'filled'"
-      :outlined="inputStyle === 'outlined'"
-      :dense="dense"
-      :color="color"
-      :hide-bottom-space="hideBottomSpace"
+        :filled="inputStyle === 'filled'"
+        :outlined="inputStyle === 'outlined'"
+        :dense="dense"
+        :color="color"
+        :hide-bottom-space="hideBottomSpace"
 
-      @focus="$refs.phone.resetValidation(); $emit('focus', $event)"
-      @blur="$emit('blur', $event)"
-    >
-      <template v-if="icon" v-slot:[iconAppendPosition]>
-        <q-icon :name="icon" />
-      </template>
-    </q-input>
+        @focus="$refs.phone.resetValidation(); $emit('focus', $event)"
+        @blur="$emit('blur', $event)"
+      >
+        <template v-if="icon" v-slot:[iconAppendPosition]>
+          <q-icon :name="icon" />
+        </template>
+      </q-input>
+    </div>
   </div>
 </template>
 

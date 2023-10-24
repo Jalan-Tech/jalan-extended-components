@@ -1,38 +1,40 @@
 <template>
-  <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
-  <q-input
-    ref="field"
-    @update:model-value="updateModel"
-    :model-value="modelValue"
+  <div>
+    <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
+    <q-input
+      ref="field"
+      @update:model-value="updateModel"
+      :model-value="modelValue"
 
-    :placeholder="placeholder"
-    :hint="hint"
+      :placeholder="placeholder"
+      :hint="hint"
 
-    type="tel"
-    :mask="isBrazil ? '#####-###' : undefined"
-    :unmasked-value="true"
+      type="tel"
+      :mask="isBrazil ? '#####-###' : undefined"
+      :unmasked-value="true"
 
-    :loading="loading || searchLoading"
-    :disable="disable"
-    :readonly="readonly"
+      :loading="loading || searchLoading"
+      :disable="disable"
+      :readonly="readonly"
 
-    :rules="[...rules, val => !val || (!!val && val.length === 8) || !isBrazil || 'Formato inválido']"
-    :lazy-rules="true"
+      :rules="[...rules, val => !val || (!!val && val.length === 8) || !isBrazil || 'Formato inválido']"
+      :lazy-rules="true"
 
-    :filled="inputStyle === 'filled'"
-    :outlined="inputStyle === 'outlined'"
-    :dense="dense"
-    :color="color"
-    :hide-bottom-space="hideBottomSpace"
-    :class="inputClass"
+      :filled="inputStyle === 'filled'"
+      :outlined="inputStyle === 'outlined'"
+      :dense="dense"
+      :color="color"
+      :hide-bottom-space="hideBottomSpace"
+      :class="inputClass"
 
-    @focus="$refs.field.resetValidation(); $emit('focus', $event)"
-    @blur="$emit('blur', $event)"
-  >
-    <template v-if="icon" v-slot:[iconAppendPosition]>
-      <q-icon :name="icon" />
-    </template>
-  </q-input>
+      @focus="$refs.field.resetValidation(); $emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
+      <template v-if="icon" v-slot:[iconAppendPosition]>
+        <q-icon :name="icon" />
+      </template>
+    </q-input>
+  </div>
 </template>
 
 <script>

@@ -1,40 +1,42 @@
 <template>
-  <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
-  <q-input
-    ref="field"
-    @update:model-value="value => $emit('update:model-value', value)"
-    :model-value="modelValue"
+  <div>
+    <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
+    <q-input
+      ref="field"
+      @update:model-value="value => $emit('update:model-value', value)"
+      :model-value="modelValue"
 
-    placeholder="HH:MM"
-    :hint="hint"
+      placeholder="HH:MM"
+      :hint="hint"
 
-    type="tel"
-    mask="##:##"
+      type="tel"
+      mask="##:##"
 
-    :loading="loading"
-    :disable="disable"
-    :readonly="readonly"
+      :loading="loading"
+      :disable="disable"
+      :readonly="readonly"
 
-    :rules="[
-      ...rules,
-      val => !val || checkHour(val) || 'Hora inválida'
-    ]"
-    :lazy-rules="true"
+      :rules="[
+        ...rules,
+        val => !val || checkHour(val) || 'Hora inválida'
+      ]"
+      :lazy-rules="true"
 
-    :filled="inputStyle === 'filled'"
-    :outlined="inputStyle === 'outlined'"
-    :dense="dense"
-    :color="color"
-    :hide-bottom-space="hideBottomSpace"
-    :class="inputClass"
+      :filled="inputStyle === 'filled'"
+      :outlined="inputStyle === 'outlined'"
+      :dense="dense"
+      :color="color"
+      :hide-bottom-space="hideBottomSpace"
+      :class="inputClass"
 
-    @focus="$refs.field.resetValidation(); $emit('focus', $event)"
-    @blur="$emit('blur', $event)"
-  >
-    <template v-if="icon" v-slot:[iconAppendPosition]>
-      <q-icon :name="icon" />
-    </template>
-  </q-input>
+      @focus="$refs.field.resetValidation(); $emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
+      <template v-if="icon" v-slot:[iconAppendPosition]>
+        <q-icon :name="icon" />
+      </template>
+    </q-input>
+  </div>
 </template>
 
 <script>
