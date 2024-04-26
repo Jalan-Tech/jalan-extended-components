@@ -233,6 +233,10 @@ export default {
       if (this.requiredTag === 'required') label += ' &nbsp; <small class="text-grey text-bold"><i>Obrigatório</i></small>&nbsp;'
       if (this.requiredTag === 'optional') label += ' &nbsp; <small class="text-grey text-weight-regular"><i>Opcional</i></small>&nbsp;'
       return label
+    },
+
+    hasError () {
+      return this.$refs.field.hasError
     }
   },
   methods: {
