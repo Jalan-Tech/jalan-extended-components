@@ -16,5 +16,8 @@
     "npm": ">= 5.6.0",
     "yarn": ">= 1.6.0"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "normalize-unicode-text": "^0.0.1"
+  }
 }
