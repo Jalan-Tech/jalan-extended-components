@@ -167,13 +167,80 @@ export default {
       this.$refs.field.resetValidation()
     },
 
-    normalizeText(value) {
-      const normalizedText = normalizeUnicodeText(value);
-      return normalizedText
+    normalizeText (text) {
+      if (!text) return ''
+      return text.normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
+          const charMap = {
+            '𝓔': 'E',
+            '𝓶': 'm',
+            '𝓾': 'u',
+            '𝓭': 'd',
+            '𝓲': 'i',
+            '𝓪': 'a',
+            '𝓬': 'c',
+            '𝓸': 'o',
+            '𝓱': 'h',
+            '𝓳': 'j',
+            '𝔄': 'A',
+            '𝔅': 'B',
+            '𝔒': 'O',
+            '𝔏': 'L',
+            '𝔖': 'S',
+            '𝔻': 'D',
+            '𝔊': 'G',
+            '𝔑': 'N',
+            '𝔘': 'U',
+            '𝕬': 'A',
+            '𝕭': 'B',
+            '𝕮': 'C',
+            '𝕯': 'D',
+            '𝕰': 'E',
+            '𝙰': 'A',
+            '𝙱': 'B',
+            '𝙲': 'C',
+            '𝙳': 'D',
+            '𝙴': 'E',
+            '𝚊': 'a',
+            '𝚋': 'b',
+            '𝚌': 'c',
+            '𝚍': 'd',
+            '𝚎': 'e',
+            '𝕒': 'a',
+            '𝕓': 'b',
+            '𝕔': 'c',
+            '𝕕': 'd',
+            '𝕖': 'e',
+            '𝔸': 'A',
+            '𝔹': 'B',
+            '𝕆': 'O',
+            '𝕀': 'I',
+            '𝕋': 'T',
+            '𝖆': 'a',
+            '𝖇': 'b',
+            '𝖈': 'c',
+            '𝖉': 'd',
+            '𝖊': 'e',
+            '𝐴': 'A',
+            '𝐵': 'B',
+            '𝑂': 'O',
+            '𝐷': 'D',
+            '𝑇': 'T',
+            '𝑎': 'a',
+            '𝑏': 'b',
+            '𝑐': 'c',
+            '𝑑': 'd',
+            '𝑒': 'e',
+            '𝐹': 'F',
+            '𝐼': 'I'
+          }
+          return charMap[char] || char
+        })
     },
 
     emitText(value) {
-      this.$emit('update:model-value', normalizeText(value))
+      this.$emit('update:model-value', this.normalizeText(value))
     },
 
     focus () {
