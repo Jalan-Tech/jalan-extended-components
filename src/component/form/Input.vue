@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="value => $emit('update:model-value', value)"
+      @update:model-value="emitText()"
       :model-value="modelValue"
 
       :placeholder="placeholder"
