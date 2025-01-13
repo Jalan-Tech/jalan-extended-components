@@ -168,9 +168,7 @@ export default {
     },
 
     normalizeTextUnicode (text) {
-      console.log('text', text)
       if (!text) return ''
-      console.log('text', text)
       return text.normalize('NFKD')
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
