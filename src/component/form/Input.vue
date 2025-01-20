@@ -169,8 +169,7 @@ export default {
 
     normalizeTextUnicode (text) {
       if (!text) return ''
-      return text.normalize('NFKD')
-        .replace(/[\u0300-\u036f]/g, '')
+      return text.replace(/[$&+,:;=?[\]@#|{}'<>.^*()%!-/°®ŧ←↓→øþæßðđŋħˀĸł«»©“”µ─·¹²³£¢¬§]/, '')
         .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
           const charMap = {
             '𝓔': 'E',
