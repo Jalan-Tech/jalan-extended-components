@@ -239,6 +239,7 @@ export default {
     },
 
     emitText(value) {
+      console.log(value)
       this.$emit('update:model-value', this.normalizeTextUnicode(value))
     },
 
