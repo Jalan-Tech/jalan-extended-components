@@ -239,7 +239,7 @@ export default {
     },
 
     emitText(value) {
-      this.$emit('update:model-value', normalizeTextUnicode(value))
+      this.$emit('update:model-value', this.normalizeTextUnicode(value))
     },
 
     focus () {
