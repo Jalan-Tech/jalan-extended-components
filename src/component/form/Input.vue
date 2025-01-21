@@ -3,8 +3,8 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="emitText"
-      :model-value="localValue"
+      @input="emitText"
+      :value="localValue"
 
       :placeholder="placeholder"
       :hint="hint"
@@ -141,7 +141,17 @@ export default {
       default: 'q-pb-md'
     }
   },
+  data() {
+    return {
+      localValue: this.modelValue // Local copia do valor
+    }
+  },
 
+  watch: {
+    modelValue(newValue) {
+      this.localValue = newValue // Atualiza o localValue quando modelValue muda
+    }
+  },
   computed: {
     iconAppendPosition () {
       return this.iconPosition === 'right' ? 'append' : 'prepend'
@@ -153,17 +163,6 @@ export default {
       if (this.requiredTag === 'optional') label += ' &nbsp; <small class="text-grey text-weight-regular"><i>Opcional</i></small>&nbsp;'
       return label
     },
-
-    localValue: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        // Aqui você aplica a normalização antes de emitir a alteração do valor
-        const normalizedValue = this.normalizeTextUnicode(value)
-        this.$emit('update:model-value', normalizedValue)
-      }
-    }
   },
 
   methods: {
@@ -252,8 +251,9 @@ export default {
 
     emitText (value) {
       console.log('value:', value)
-      this.localValue = value
-      // this.$emit('update:model-value', this.normalizeTextUnicode(value))
+      const normalizedValue = this.normalizeTextUnicode(value)
+      this.localValue = normalizedValue
+      this.$emit('update:model-value', normalizedValue)
     },
 
     focus () {
