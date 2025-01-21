@@ -166,11 +166,6 @@ export default {
     resetValidation () {
       this.$refs.field.resetValidation()
     },
-
-    emitText (value) {
-      console.log(value)
-      this.$emit('update:model-value', this.normalizeTextUnicode(value))
-    },
     
     normalizeTextUnicode (text) {
       if (!text) return ''
@@ -241,6 +236,11 @@ export default {
           }
           return charMap[char] || char
         })
+    },
+
+    emitText (value) {
+      console.log(value)
+      this.$emit('update:model-value', normalizeTextUnicode(value))
     },
 
     focus () {
