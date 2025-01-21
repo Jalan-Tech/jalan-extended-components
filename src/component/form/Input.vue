@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="(value) => emitText(value)"
+      @update:model-value="emitText"
       :model-value="modelValue"
 
       :placeholder="placeholder"
@@ -168,7 +168,7 @@ export default {
     },
     
     normalizeTextUnicode (text) {
-      console.log('text', text)
+      console.log('text:', text)
       if (!text) return ''
       return text.replace(/[$&+,:;=?[\]@#|{}'<>.^*()%!-/°®ŧ←↓→øþæßðđŋħˀĸł«»©“”µ─·¹²³£¢¬§]/, '')
         .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
@@ -240,8 +240,9 @@ export default {
     },
 
     emitText (value) {
+      console.log('value:', value)
       this.$emit('update:model-value', this.normalizeTextUnicode(value))
-      console.log(this.normalizeTextUnicode(value))
+      console.log('this:', this.normalizeTextUnicode(value))
     },
 
     focus () {
