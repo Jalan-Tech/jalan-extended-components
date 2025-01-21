@@ -245,8 +245,6 @@ export default {
         this.$emit('update:model-value', normalizedValue)
         console.log('Aqui')
       }, 2000)
-      const normalizedValue = this.normalizeTextUnicode(value)
-      this.$emit('update:model-value', normalizedValue)
 
     },
 
