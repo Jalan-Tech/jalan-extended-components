@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="emitText"
+      @input="emitText"
       :model-value="modelValue"
 
       :placeholder="placeholder"
@@ -253,10 +253,5 @@ export default {
     }
   },
 
-  watch: {
-    modelValue(newVal) {
-      this.$emit('update:model-value', this.normalizeTextUnicode(newVal))
-    }
-  }
 }
 </script>
