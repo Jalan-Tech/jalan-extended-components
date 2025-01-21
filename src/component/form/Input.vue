@@ -19,7 +19,7 @@
       :readonly="readonly"
 
       :rules="rules"
-      :lazy-rules="true"
+      :lazy-rules="false"
       :maxlength="maxLength"
       :counter="!!maxLength"
 
