@@ -238,13 +238,13 @@ export default {
           return charMap[char] || char
         })
     },
-    emitText (value) {
+    async emitText (value) {
       console.log('value:', value)
-      setTimeout (() => {
-        const normalizedValue = this.normalizeTextUnicode(value)
-        this.$emit('update:model-value', normalizedValue)
-        console.log('Aqui')
-      }, 2000)
+      
+      const normalizedValue = await this.normalizeTextUnicode(value)
+      this.$emit('update:model-value', normalizedValue)
+      console.log('Aqui')
+
 
     },
 
