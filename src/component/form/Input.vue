@@ -3,8 +3,8 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="emitText"
-      :model-value="modelValue"
+      @update:model-value="filterInput"
+      :model-value="localValue"
 
       :placeholder="placeholder"
       :hint="hint"
@@ -142,6 +142,21 @@ export default {
     }
   },
 
+  data() {
+    return {
+      localValue: this.modelValue
+    }
+  },
+
+  watch: {
+    modelValue(val) {
+      this.localValue = val
+    },
+    localValue(val) {
+      this.$emit('update:model-value', val)
+    }
+  },
+
   computed: {
     iconAppendPosition () {
       return this.iconPosition === 'right' ? 'append' : 'prepend'
@@ -166,7 +181,7 @@ export default {
     resetValidation () {
       this.$refs.field.resetValidation()
     },
-    
+
     normalizeTextUnicode (text) {
       console.log('text:', text)
       if (!text) return ''
@@ -238,11 +253,15 @@ export default {
           return charMap[char] || char
         })
     },
-
+    filterInput(value) {
+      const normalizedValue = this.normalizeTextUnicode(value)
+      this.localValue = normalizedValue
+    },
     emitText (value) {
-      console.log('value:', value)
-      this.$emit('update:model-value', this.normalizeTextUnicode(value))
-      console.log('this:', this.normalizeTextUnicode(value))
+      const normalizedValue = this.normalizeTextUnicode(value)
+      if (normalizedValue !== this.modelValue) {
+        this.$emit('update:model-value', normalizedValue)
+      }
     },
 
     focus () {
