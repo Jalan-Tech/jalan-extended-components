@@ -4,7 +4,7 @@
     <q-input
       ref="field"
       @input="emitText"
-      :value="localValue"
+      :model-value="modelValue"
 
       :placeholder="placeholder"
       :hint="hint"
@@ -19,7 +19,7 @@
       :readonly="readonly"
 
       :rules="rules"
-      :lazy-rules="false"
+      :lazy-rules="true"
       :maxlength="maxLength"
       :counter="!!maxLength"
 
@@ -141,17 +141,7 @@ export default {
       default: 'q-pb-md'
     }
   },
-  data() {
-    return {
-      localValue: this.modelValue // Local copia do valor
-    }
-  },
 
-  watch: {
-    modelValue(newValue) {
-      this.localValue = newValue // Atualiza o localValue quando modelValue muda
-    }
-  },
   computed: {
     iconAppendPosition () {
       return this.iconPosition === 'right' ? 'append' : 'prepend'
@@ -252,7 +242,6 @@ export default {
     emitText (value) {
       console.log('value:', value)
       const normalizedValue = this.normalizeTextUnicode(value)
-      this.localValue = normalizedValue
       this.$emit('update:model-value', normalizedValue)
     },
 
