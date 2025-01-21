@@ -166,8 +166,9 @@ export default {
     resetValidation () {
       this.$refs.field.resetValidation()
     },
-    
+
     normalizeTextUnicode (text) {
+      console.log('text:', text)
       if (!text) return ''
       return text.replace(/[$&+,:;=?[\]@#|{}'<>.^*()%!-/°®ŧ←↓→øþæßðđŋħˀĸł«»©“”µ─·¹²³£¢¬§]/, '')
         .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
@@ -237,11 +238,16 @@ export default {
           return charMap[char] || char
         })
     },
-
     emitText (value) {
       console.log('value:', value)
-      this.$emit('update:model-value', this.normalizeTextUnicode(value))
-      console.log('this:', this.normalizeTextUnicode(value))
+      setTimeout (() => {
+        const normalizedValue = this.normalizeTextUnicode(value)
+        this.$emit('update:model-value', normalizedValue)
+        console.log('Aqui')
+      }, 100)
+      const normalizedValue = this.normalizeTextUnicode(value)
+      this.$emit('update:model-value', normalizedValue)
+
     },
 
     focus () {
