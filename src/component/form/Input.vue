@@ -3,8 +3,8 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @input="emitText"
-      :model-value="modelValue"
+      @update:model-value="emitText"
+      :model-value="localValue"
 
       :placeholder="placeholder"
       :hint="hint"
@@ -152,6 +152,17 @@ export default {
       if (this.requiredTag === 'required') label += ' &nbsp; <small class="text-grey text-bold"><i>Obrigatório</i></small>&nbsp;'
       if (this.requiredTag === 'optional') label += ' &nbsp; <small class="text-grey text-weight-regular"><i>Opcional</i></small>&nbsp;'
       return label
+    },
+
+    localValue: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        // Aqui você aplica a normalização antes de emitir a alteração do valor
+        const normalizedValue = this.normalizeTextUnicode(value)
+        this.$emit('update:model-value', normalizedValue)
+      }
     }
   },
 
@@ -241,7 +252,8 @@ export default {
 
     emitText (value) {
       console.log('value:', value)
-      this.$emit('update:model-value', this.normalizeTextUnicode(value))
+      this.localValue = value
+      // this.$emit('update:model-value', this.normalizeTextUnicode(value))
     },
 
     focus () {
