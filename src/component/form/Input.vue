@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @input="emitText"
+      @update:model-value="emitText"
       :model-value="modelValue"
 
       :placeholder="placeholder"
@@ -239,9 +239,9 @@ export default {
         })
     },
 
-    emitText (value) {
+    async emitText (value) {
       console.log('value:', value)
-      const normalizedValue = this.normalizeTextUnicode(value)
+      const normalizedValue = await this.normalizeTextUnicode(value)
       this.$emit('update:model-value', normalizedValue)
     },
 
