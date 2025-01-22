@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="emitText"
+      @update:model-value="normalizeHandler"
       :model-value="modelValue"
 
       :placeholder="placeholder"
@@ -20,8 +20,7 @@
 
       :rules="rules"
       :lazy-rules="true"
-      :maxlength="maxLength"
-      :counter="!!maxLength"
+      :maxlength="maxlength"
 
       :filled="inputStyle === 'filled'"
       :outlined="inputStyle === 'outlined'"
@@ -34,7 +33,9 @@
       @blur="$emit('blur', $event)"
     >
       <template v-if="icon" v-slot:[iconAppendPosition]>
-        <q-icon :name="icon" />
+        <q-icon color="grey-6" class="q-ml-sm" :name="icon" :style="{ fontSize: iconSize ? iconSize : '24px' }" />
+
+        <q-separator color="grey-5" inset class="q-ml-sm q-my-md" vertical size="2px" />
       </template>
     </q-input>
   </div>
@@ -76,7 +77,13 @@ export default {
       type: String,
       default: 'left'
     },
-
+    iconSize: {
+      type: String
+    },
+    normalize: {
+      type: Boolean,
+      default: false
+    },
     // opcionais espeficicos
     type: {
       type: String,
@@ -114,7 +121,7 @@ export default {
       type: Array,
       default: () => []
     },
-    maxLength: {
+    maxlength: {
       type: [String, Number],
       default: undefined
     },
@@ -153,6 +160,11 @@ export default {
       if (this.requiredTag === 'optional') label += ' &nbsp; <small class="text-grey text-weight-regular"><i>Opcional</i></small>&nbsp;'
       return label
     },
+    normalizeHandler () {
+      return this.normalize
+        ? this.emitText
+        : value => this.$emit('update:model-value', value)
+    }
   },
 
   methods: {
@@ -239,8 +251,7 @@ export default {
     },
 
     emitText (value) {
-      const normalizedValue = this.normalizeTextUnicode(value)
-      this.$emit('update:model-value', normalizedValue)
+      this.$emit('update:model-value', this.normalizeTextUnicode(value))
     },
 
     focus () {
@@ -250,7 +261,6 @@ export default {
     blur () {
       this.$refs.field.blur()
     }
-  },
-
+  }
 }
 </script>
