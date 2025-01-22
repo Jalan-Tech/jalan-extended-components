@@ -3,8 +3,8 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-input
       ref="field"
-      @update:model-value="normalizeHandler"
-      :model-value="modelValue"
+      @update:model-value="emitText"
+      :model-value="localValue"
 
       :placeholder="placeholder"
       :hint="hint"
@@ -148,7 +148,17 @@ export default {
       default: 'q-pb-md'
     }
   },
+  data() {
+    return {
+      localValue: this.modelValue
+    }
+  },
 
+  watch: {
+    modelValue(val) {
+      this.localValue = this.normalize ? this.normalizeTextUnicode(val) : val
+    }
+  },
   computed: {
     iconAppendPosition () {
       return this.iconPosition === 'right' ? 'append' : 'prepend'
@@ -251,7 +261,14 @@ export default {
     },
 
     emitText (value) {
-      this.$emit('update:model-value', this.normalizeTextUnicode(value))
+      if (this.normalize) {
+        const normalizedValue = this.normalizeTextUnicode(value)
+        this.localValue = normalizedValue
+        this.$emit('update:model-value', normalizedValue)
+      } else {
+        this.localValue = value
+        this.$emit('update:model-value', value)
+      }
     },
 
     focus () {
