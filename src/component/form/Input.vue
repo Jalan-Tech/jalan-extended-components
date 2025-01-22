@@ -168,7 +168,6 @@ export default {
     },
 
     normalizeTextUnicode (text) {
-      console.log('text:', text)
       if (!text) return ''
       return text.replace(/[$&+,:;=?[\]@#|{}'<>.^*()%!-/°®ŧ←↓→øþæßðđŋħˀĸł«»©“”µ─·¹²³£¢¬§]/, '')
         .replace(/[\u{1D400}-\u{1D7FF}]/gu, char => {
@@ -239,9 +238,8 @@ export default {
         })
     },
 
-    async emitText (value) {
-      console.log('value:', value)
-      const normalizedValue = await this.normalizeTextUnicode(value)
+    emitText (value) {
+      const normalizedValue = this.normalizeTextUnicode(value)
       this.$emit('update:model-value', normalizedValue)
     },
 
