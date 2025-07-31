@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-select
       ref="field"
-      options-selected-class="text-bold bg-red"
+      options-selected-class="text-bold bg-grey-2"
 
       @update:model-value="$emit('update:model-value', $event)"
       :model-value="modelValue"
