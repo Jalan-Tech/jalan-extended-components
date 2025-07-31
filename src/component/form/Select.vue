@@ -3,7 +3,7 @@
     <div v-if="label" class="text-body2 q-ma-xs"><span v-html="labelData" /></div>
     <q-select
       ref="field"
-      options-selected-class="text-bold bg-grey-2"
+      options-selected-class="text-bold bg-red"
 
       @update:model-value="$emit('update:model-value', $event)"
       :model-value="modelValue"
@@ -39,15 +39,6 @@
 
       @focus="$refs.field.resetValidation(); $emit('focus', $event)"
       @blur="$emit('blur', $event)"
-
-      :menu-anchor="menuConfig.anchor"
-      :menu-self="menuConfig.self"
-      :menu-offset="menuConfig.offset"
-      :menu-shrink="menuConfig.shrink"
-      :menu-close-on-escape="menuConfig.closeOnEscape"
-      :menu-close-on-content-click="menuConfig.closeOnContentClick"
-      transition-show="jump-down"
-      transition-hide="jump-up"
     >
       <template v-if="icon" v-slot:[iconAppendPosition]>
         <q-icon :name="icon" />
@@ -209,11 +200,6 @@ export default {
     inputClass: {
       type: String,
       default: 'q-pb-md'
-    },
-    menuBehavior: {
-      type: String,
-      default: 'default', // default, mobile, desktop
-      validator: (value) => ['default', 'mobile', 'desktop'].includes(value)
     }
   },
   data () {
@@ -251,41 +237,6 @@ export default {
 
     hasError () {
       return this.$refs.field.hasError
-    },
-
-    menuConfig () {
-      // Configurações específicas para mobile
-      if (this.menuBehavior === 'mobile' || (this.menuBehavior === 'default' && this.$q.platform.is.mobile)) {
-        return {
-          anchor: 'bottom left',
-          self: 'top left',
-          offset: [0, 8],
-          shrink: true,
-          closeOnEscape: true,
-          closeOnContentClick: false
-        }
-      }
-      
-      // Configurações para desktop
-      if (this.menuBehavior === 'desktop' || (this.menuBehavior === 'default' && !this.$q.platform.is.mobile)) {
-        return {
-          anchor: 'bottom left',
-          self: 'top left',
-          offset: [0, 8],
-          shrink: false,
-          closeOnEscape: true,
-          closeOnContentClick: false
-        }
-      }
-      
-      return {
-        anchor: 'bottom left',
-        self: 'top left',
-        offset: [0, 8],
-        shrink: true,
-        closeOnEscape: true,
-        closeOnContentClick: false
-      }
     }
   },
   methods: {
@@ -329,36 +280,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* Correções específicas para mobile */
-@media (max-width: 1023px) {
-  /* Garante que o popup do select seja renderizado corretamente no mobile */
-  :deep(.q-select__dialog) {
-    position: fixed !important;
-    z-index: 2000 !important;
-  }
-  
-  /* Corrige o posicionamento do menu no mobile */
-  :deep(.q-menu) {
-    position: fixed !important;
-    z-index: 2000 !important;
-  }
-  
-  /* Garante que o backdrop seja renderizado corretamente */
-  :deep(.q-menu__backdrop) {
-    z-index: 1999 !important;
-  }
-}
-
-/* Garante que o select tenha z-index adequado */
-:deep(.q-select) {
-  position: relative;
-  z-index: 1;
-}
-
-/* Corrige problemas de overflow no container */
-:deep(.q-select__dialog-container) {
-  overflow: visible !important;
-}
-</style>
