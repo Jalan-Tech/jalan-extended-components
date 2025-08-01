@@ -30,6 +30,7 @@
       :dense="dense"
       :color="color"
       :hide-bottom-space="hideBottomSpace"
+      :behavior="behavior"
       :class="inputClass"
 
       :rules="rules"
