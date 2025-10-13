@@ -17,7 +17,7 @@
       :loading="loading"
       :disable="disable"
       :readonly="readonly"
-      
+
       :rules="rules"
       :lazy-rules="true"
       :maxlength="maxlength"
@@ -156,9 +156,7 @@ export default {
 
   watch: {
     modelValue(val) {
-      console.log(this.normalize)
       this.localValue = this.normalize ? this.normalizeTextUnicode(val) : val
-      console.log(this.localValue)
     }
   },
   computed: {
