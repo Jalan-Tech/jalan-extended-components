@@ -17,7 +17,7 @@
       :loading="loading"
       :disable="disable"
       :readonly="readonly"
-
+      :normalize="normalize"
       :rules="rules"
       :lazy-rules="true"
       :maxlength="maxlength"
