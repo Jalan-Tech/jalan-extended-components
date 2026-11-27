@@ -1,0 +1,29 @@
+# Copie para .github/dependabot.yml num repositório yarn/npm. Mensal e agrupado: um PR de
+# dependências por mês, que o Code Checks confere (gate, Dependency Gate, Vulnerabilities)
+# sem gastar a review do Claude (o plan pula a review para o dependabot[bot]).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: ci
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 1
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: chore

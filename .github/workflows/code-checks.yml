@@ -1,0 +1,30 @@
+name: Code Checks
+
+# Quality gate, Semgrep e review do Claude num workflow só.
+# Tudo é decidido em Jalan-Tech/jalan-github-workflows/.github/workflows/code-checks.yml.
+# Repo de back: passe `backend: true` em `with:`. Semgrep com rulesets próprios: `semgrep_config`.
+# Repo sem Semgrep: `semgrep: false`.
+on:
+  pull_request:
+    types: [opened, ready_for_review, synchronize, reopened, edited]
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Número do PR (vazio = só o scan completo do Semgrep)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  checks:
+    uses: Jalan-Tech/jalan-github-workflows/.github/workflows/code-checks.yml@v1
+    with:
+      pr_number: ${{ inputs.pr_number || '' }}
+      semgrep_config: p/security-audit p/owasp-top-ten p/javascript p/typescript
