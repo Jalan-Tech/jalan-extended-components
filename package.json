@@ -6,7 +6,8 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "prepare": "lefthook install"
   },
   "repository": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/JalanExtendedComponents",
   "bugs": "",
@@ -19,5 +20,8 @@
   "private": true,
   "dependencies": {
     "normalize-unicode-text": "^0.0.1"
+  },
+  "devDependencies": {
+    "lefthook": "2.2.2"
   }
 }

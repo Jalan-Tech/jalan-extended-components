@@ -1,0 +1,8 @@
+# Copie para a raiz do repositório. Os comandos vivem no quality-config (hooks/lefthook.yml):
+# pre-commit roda `check-pr --staged`, pre-push roda `check-pr --fetch`, na mesma v1 que o
+# Code Checks usa. Instale com `"prepare": "lefthook install"` no package.json (lefthook em
+# devDependencies) ou, em repositório Python, `pip install lefthook` no venv e `lefthook install`.
+remotes:
+  - git_url: git@github.com:Jalan-Tech/quality-config
+    ref: v1
+    configs: [hooks/lefthook.yml]
